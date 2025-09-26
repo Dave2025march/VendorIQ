@@ -1,0 +1,219 @@
+# 🧠 Business Description Comparison & Ranking System
+
+## 📌 Problem Statement
+
+We have business description data from **four vendors**:
+
+- **D&B**
+- **UCC**
+- **Livesight**
+- **Creditsafe**
+
+Each vendor provides business descriptions in their **own format**. We also have an **internal standard format** that we use for comparison.
+
+---
+
+## 🎯 Objective
+
+1. **Compare** each vendor's business description against our internal format.
+2. **Score** each description based on how well it aligns with our format.
+3. **Rank** the vendors from **1 to 4** based on their scores.
+4. **Automatically extract** the top-ranked (Rank 1) business description and **store it in a new sheet** within the same Excel file.
+
+---
+
+## 🧮 Scoring Criteria
+
+> ⚠️ **Note**: This scoring function is a placeholder for prototyping purposes only. It will be replaced with a more robust, rule-based or ML/NLP-driven model in future iterations.
+
+A placeholder scoring mechanism will be implemented initially. This will later be updated with a detailed rubric based on:
+
+- Keyword matching
+- Structural alignment
+- Completeness
+- Tone and clarity
+- Semantic similarity
+
+### 🔢 Error Categories & Weightage
+
+| Error Type                                      | Weight     |
+|------------------------------------------------|------------|
+| Primary Business                                | Critical - 1.0 |
+| Name/Ownership Info                             | High - 0.75 |
+| Spelling Errors (Proper Nouns)                  | High - 0.75 |
+| Grammar / Product Mismatch                      | Medium - 0.5 |
+| Name Change Month / Multiple Ownership Lines    | Low - 0.25 |
+| Clients / Distribution / Partnerships           | Low - 0.25 |
+| Formatting / Spacing / Additional Offices       | Low - 0.25 |
+
+---
+
+## 🏆 Ranking Logic
+
+- Vendors will be ranked **based on their scores** (highest = Rank 1).
+- In case of a **tie**, a random selection may be used to break the tie (subject to future refinement).
+
+---
+
+## 📤 Output Requirements
+
+- A **new sheet** in the same Excel file will be created.
+- This sheet will contain:
+  - The **business description** of the top-ranked vendor.
+  - *(Optional: Additional metadata like vendor name, score, etc., can be added later.)*
+
+### 📝 Sample Output Sheet Structure
+
+| Company Name | Vendor     | Business Description                                | Score | Rank |
+|--------------|------------|-----------------------------------------------------|-------|------|
+| ABC, Inc.    | Creditsafe | ABC, Inc. manufactures and distributes...           | 9.5   | 1    |
+| XYZ Corp.    | D&B        | XYZ Corp. is a holding company that...              | 8.0   | 2    |
+
+---
+
+## 📁 Data Format
+
+- All data will be provided in a **single Excel file**.
+- Vendor data may be organized in:
+  - **Separate sheets**, or
+  - **Separate columns** in the same sheet
+- The internal format will also be included in the same file.
+
+---
+
+## 🧰 Automation Workflow
+
+### Step 1: Read Excel File
+- Load all vendor data and internal format into memory.
+
+### Step 2: Preprocess Descriptions
+- Clean and normalize text (e.g., remove special characters, lowercase, etc.)
+
+### Step 3: Compare with Internal Format
+- Use a scoring function (placeholder for now) to evaluate each vendor’s description.
+
+### Step 4: Assign Scores
+- Store scores for each vendor in a structured format (e.g., DataFrame).
+
+### Step 5: Rank Vendors
+- Rank vendors based on scores (highest = Rank 1).
+- If tie: randomly assign rank among tied vendors.
+
+### Step 6: Export Best Description
+- Create a **new sheet** in the same Excel file.
+- Add the **Rank 1** vendor’s business description to this sheet.
+
+---
+
+## 🧾 Internal Format Reference
+
+### ✅ Required Sequence (with Examples)
+
+1. **Out of Business / Acquired Line**  
+   _As of March 15, 2022, ABC, Inc. was acquired by XYZ Corp._
+
+2. **Doing Business As / Also Known As**  
+   _ABC, Inc., also known as XYZ Solutions, provides cloud-based analytics services._
+
+3. **Primary Business**  
+   _High Ridge Brands Co. manufactures and distributes hair care and skin cleansing products._
+
+4. **Products and Services**  
+   _The company offers shampoos, conditioners, body washes, and bar soaps._
+
+5. **Uses/Applications**  
+   _Its products are used in personal care and hygiene applications._
+
+6. **Primary Clients / Customer Groups**  
+   _The company serves the healthcare, retail, and hospitality industries._
+
+7. **Geographical Markets**  
+   _It operates in North America, Europe, and Asia-Pacific._
+
+8. **Distribution Channels**  
+   _The company sells its products through direct sales and third-party distributors._
+
+9. **Strategic Alliances / Partnerships**  
+   _The company has strategic partnerships with IBM and Lenovo._
+
+10. **Former Names / Name Change Info**  
+   _ABC, Inc. was formerly known as XYZ Technologies._
+
+11. **Founded Year / Headquarters**  
+   _Founded in 1998, the company is based in San Jose, California._
+
+12. **Additional Offices / Facilities**  
+   _It has additional offices in London, UK and Sydney, Australia._
+
+13. **Parent Company Info**  
+   _The company operates as a subsidiary of GlobalTech Holdings._
+
+14. **Bankruptcy Info**  
+   _As of January 2023, ABC, Inc. is in reorganization._
+
+---
+
+## 🧾 Special Case Templates
+
+- **Holding Company**:  
+  _ABC, Inc. is a holding company that operates through its subsidiaries XYZ and PQR._
+
+- **Debt Issuing Vehicle**:  
+  _ABC, Inc. is a debt issuing vehicle._
+
+- **Dormant Company**:  
+  _ABC has no business operations._
+
+- **Bank Holding Company**:  
+  _ABC operates as a bank holding company for XYZ Bank._
+
+- **Blank Check Company**:  
+  _ABC is a blank check company based in New York._
+
+---
+
+## ✍️ Grammar & Style Rules
+
+- Use **present tense** even for acquired or out-of-business entities.
+- Avoid promotional words like “leading,” “innovative,” “state-of-the-art.”
+- Use **active voice**: _“The company provides…”_ instead of _“The company is a provider of…”_
+- Avoid contractions (e.g., use “does not” instead of “doesn’t”).
+- Use commas before “and” in lists of 3 or more items.
+- Use semicolons to separate complex list items.
+- Avoid “comprises of”; use “comprises” or “is comprised of.”
+- Use “such as,” “including,” or “that includes” instead of “like.”
+
+---
+
+## 🧪 Placeholder Scoring Function (To Be Updated)
+
+```python
+def score_description(vendor_desc, internal_format):
+    # Placeholder logic
+    score = 0
+    if "primary business" in vendor_desc.lower():
+        score += 1
+    if "products" in vendor_desc.lower():
+        score += 1
+    if "clients" in vendor_desc.lower():
+        score += 1
+    return score
+
+## ✅ Future Enhancements
+
+The following improvements are planned for future iterations of this system:
+
+- **Define a robust scoring rubric**  
+  Replace the placeholder logic with a detailed, rule-based scoring system aligned with business description standards.
+
+- **Add NLP-based semantic similarity scoring**  
+  Use language models or embeddings to compare vendor descriptions with the internal format more intelligently.
+
+- **Include metadata in output**  
+  Add columns like vendor name, score, and rank to the output sheet for better traceability.
+
+- **Handle tie-breaking with more intelligent logic**  
+  Instead of random selection, use secondary criteria (e.g., length, keyword density) to resolve ties.
+
+- **Add logging and error handling**  
+  Ensure the script logs processing steps and handles missing or malformed data gracefully.
